@@ -57,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.0"
+  flame_rive:
+    dependency: "direct main"
+    description:
+      name: flame_rive
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.2"
   flutter:
     dependency: "direct main"
     description: flutter
