@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
-import 'package:flame/flame.dart';
-import 'package:rive/rive.dart';
+
+import '/game.dart';
 
 void main() {
-  final game = FlameGame();
+  MyGame game = MyGame();
   runApp(
     GameWidget(
       game: game,
