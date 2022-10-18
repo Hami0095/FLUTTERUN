@@ -14,7 +14,6 @@ class GameWorld extends FlameGame {
     backgroundComponent.size = Vector2.all(900);
     var backgroundController = OneShotAnimation('Animation 1', autoplay: true);
     backgroundArtBoard.addController(backgroundController);
-
     add(backgroundComponent);
     return super.onLoad();
   }
