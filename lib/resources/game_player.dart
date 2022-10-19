@@ -17,8 +17,8 @@ class GamePlayer extends FlameGame {
     PlayerComponent characterComponent = PlayerComponent(
       playerArtboard: characterArtboard,
     );
-    characterComponent.position = worldSize * 0.64;
-    var characterController = OneShotAnimation('Running', autoplay: true);
+    characterComponent.position = worldSize * 0.57;
+    var characterController = OneShotAnimation('Animation 1', autoplay: true);
     characterArtboard.addController(characterController);
     add(characterComponent);
     return super.onLoad();
@@ -30,7 +30,7 @@ class PlayerComponent extends RiveComponent with HasGameRef {
   PlayerComponent({required this.playerArtboard})
       : super(
           artboard: playerArtboard,
-          size: Vector2.all(100),
+          size: Vector2.all(172),
         );
   @override
   Future<void>? onLoad() {
