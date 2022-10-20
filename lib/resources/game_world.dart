@@ -2,6 +2,8 @@ import 'package:flame/game.dart';
 import 'package:flame_rive/flame_rive.dart';
 import 'package:rive/rive.dart';
 
+GameWorld world = GameWorld();
+
 class GameWorld extends FlameGame {
   late RiveComponent backgroundComponent;
 
