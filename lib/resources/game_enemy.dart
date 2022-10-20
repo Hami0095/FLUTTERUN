@@ -10,15 +10,17 @@ class GameEnemy extends FlameGame {
   String enemy;
   Vector2 worldSize;
   GameEnemy({required this.enemy, required this.worldSize});
+  late EnemyComponent characterComponent;
   @override
   Future<void> onLoad() async {
     Artboard characterArtboard = await loadArtboard(
       RiveFile.asset(enemy),
     );
-    EnemyComponent characterComponent = EnemyComponent(
+    characterComponent = EnemyComponent(
       playerArtboard: characterArtboard,
     );
-    characterComponent.position = worldSize * 0.615;
+    characterComponent.position = worldSize * 0.54;
+    characterComponent.position.x = worldSize.x == 360 ? worldSize.x : 360;
     var characterController = OneShotAnimation('Animation 1', autoplay: true);
     characterArtboard.addController(characterController);
     add(characterComponent);
@@ -31,18 +33,16 @@ class EnemyComponent extends RiveComponent with HasGameRef {
   EnemyComponent({required this.playerArtboard})
       : super(
           artboard: playerArtboard,
-          size: Vector2.all(100),
+          size: Vector2.all(200),
         );
-  @override
-  Future<void>? onLoad() {
-    position.x = 50;
-    return super.onLoad();
-  }
 
   @override
   void update(double dt) {
     super.update(dt);
-    x = x;
+    if (x == -120) {
+      removeFromParent();
+    }
+    x = x - 1;
     debugPrint("$x");
   }
 }
