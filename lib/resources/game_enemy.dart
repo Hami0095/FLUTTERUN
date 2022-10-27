@@ -35,14 +35,19 @@ class EnemyComponent extends RiveComponent with HasGameRef {
           artboard: playerArtboard,
           size: Vector2.all(200),
         );
+  @override
+  Future<void>? onLoad() {
+    position.y = position.y + 50;
+    return super.onLoad();
+  }
 
   @override
   void update(double dt) {
     super.update(dt);
-    if (x == -120) {
+    if (x <= -120) {
       removeFromParent();
     }
-    x = x - 1;
+    x = x - 6;
     debugPrint("$x");
   }
 }
