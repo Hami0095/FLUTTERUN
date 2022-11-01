@@ -31,7 +31,7 @@ class CharacterComponent extends SpriteComponent with HasGameRef {
 
   Random _random = Random();
   Vector2 getRandomVector() {
-    return (Vector2.random(_random) - Vector2(0.5, -1)) * 1000;
+    return (Vector2.random(_random) - Vector2(0.5, -1)) * 450;
   }
 
   @override
@@ -42,7 +42,7 @@ class CharacterComponent extends SpriteComponent with HasGameRef {
         lifespan: 0.05,
         generator: (i) => AcceleratedParticle(
           speed: getRandomVector(),
-          position: position.clone() + Vector2((size.x) / 2, (size.y) - 20),
+          position: position.clone() + Vector2((size.x) / 2, (size.y)),
           child: CircleParticle(
             paint: Paint()..color = const Color.fromARGB(255, 254, 163, 26),
             radius: 2,
