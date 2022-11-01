@@ -13,11 +13,11 @@ class GameWorld extends FlameGame with HasTappables {
   @override
   Future<void>? onLoad() async {
     Artboard backgroundArtBoard = await loadArtboard(
-      RiveFile.asset('assets/images/backgrnd.riv'),
+      RiveFile.asset('assets/images/sarak.riv'),
     );
     backgroundComponent = BackGroundComponent(backgroundArtBoard);
-    backgroundComponent.size = Vector2.all(900);
-    var backgroundController = OneShotAnimation('Animation 1', autoplay: false);
+    backgroundComponent.size = Vector2(420, 1000);
+    var backgroundController = OneShotAnimation('Timeline 1', autoplay: true);
     backgroundArtBoard.addController(backgroundController);
     add(backgroundComponent);
     return super.onLoad();

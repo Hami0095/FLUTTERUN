@@ -1,4 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
+import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
@@ -11,7 +12,9 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
   MyGame game = MyGame();
+
   runApp(
     MaterialApp(
       home: SafeArea(
@@ -24,3 +27,5 @@ void main() {
     ),
   );
 }
+
+mixin HorizontalDragGestureRecognizer {}
