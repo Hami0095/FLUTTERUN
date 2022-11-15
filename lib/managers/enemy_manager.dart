@@ -37,9 +37,8 @@ class EnemyManager extends FlameGame {
     final psizex = size.x / 3.5;
     final psizey = size.y / 4.5;
     final psize = Vector2(psizex, psizey);
-    final eSprite = await loadSprite('car2.png');
+    final eSprite = await loadSprite('police.png');
     double pos = 65;
-    final pSprite1 = await loadSprite('car1_1.png');
     double speed = Random().nextDouble() * 5;
 
     enemyXPosSetter = (Random().nextInt(2));

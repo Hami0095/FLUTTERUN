@@ -33,7 +33,7 @@ class EnemyComponent extends SpriteComponent {
         position.x == player.position.x)) {
       player.health--;
       HapticFeedback.heavyImpact();
-      player.gameRef.camera.shake(duration: 0.1, intensity: 1);
+      player.gameRef.camera.shake(duration: 0.1, intensity: 2);
       removeFromParent();
       return true;
     }

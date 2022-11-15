@@ -6,6 +6,7 @@ import 'package:flame/game.dart';
 import 'package:run/screens/game_play.dart';
 import 'package:run/screens/main_menu.dart';
 import 'package:run/themes/my_themes.dart';
+import 'package:run/widgets/overlays/pause_menu.dart';
 
 import '/game.dart';
 
@@ -22,12 +23,13 @@ void main() {
     MaterialApp(
       routes: {
         MainMenu.routeName: (ctx) => const MainMenu(),
-        GamePlay.routeName: (ctx) => GamePlay()
+        GamePlay.routeName: (ctx) => GamePlay(),
+        PauseMenu.routeName: (ctx) => PauseMenu(
+              gameRef: game,
+            ),
       },
       home: const MainMenu(),
       theme: MyThemes.darkTheme,
     ),
   );
 }
-
-mixin HorizontalDragGestureRecognizer {}

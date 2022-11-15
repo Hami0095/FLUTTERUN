@@ -42,9 +42,11 @@ class MyGame extends FlameGame
   @override
   Future<void>? onLoad() async {
     debugPrint('loading Assets');
-    final eSprite = await loadSprite('car2.png');
-    final bckgSprite = await loadSprite('roads_sprite_sheet_1.png');
-    final pSprite1 = await loadSprite('car1_1.png');
+    final eSprite = await loadSprite('police.png');
+    final bckgSprite = await loadSprite('Bg.png');
+    final roadSprite = await loadSprite('Road.png');
+
+    final pSprite1 = await loadSprite('Car.png');
     final pSprite2 = await loadSprite('car1_2.png');
     final pSprite3 = await loadSprite('car1_3.png');
     final pSprite4 = await loadSprite('car1_4.png');
@@ -56,7 +58,7 @@ class MyGame extends FlameGame
       pSprite4,
       pSprite5
     ];
-    print('${size.x}, ${size.y}');
+
     final psize = Vector2(size.x / 4, size.y / 5);
     final bckgSize = Vector2(size.x, size.y);
     final playerPos = Vector2(pos, size.y / 1.4);
@@ -70,8 +72,13 @@ class MyGame extends FlameGame
 
     _background = Background(
       bckgSprite,
-      bckgSize,
-      Vector2(0, 0),
+      Vector2(size.x * 1.6, size.y * 2.5),
+      Vector2(-150, -size.y),
+    );
+    final srak = Background(
+      roadSprite,
+      Vector2(size.x * 0.75, size.y * 2),
+      Vector2(size.x / 9, -100),
     );
     final renderer = TextPaint(
       style: const TextStyle(
@@ -103,7 +110,9 @@ class MyGame extends FlameGame
     if (gameOverFlag == true) {
       await add(gameOverText);
     }
+
     await add(_background);
+    await add(srak);
     await add(_character);
     await add(enemyManager);
     await add(_playerScore);
