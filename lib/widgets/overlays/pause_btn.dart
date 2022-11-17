@@ -24,7 +24,7 @@ class PauseButton extends StatelessWidget {
               border: Border.all(color: Theme.of(context).primaryColor),
               boxShadow: const [
                 BoxShadow(
-                  color: Color.fromARGB(255, 112, 112, 112),
+                  color: Colors.transparent,
                   blurRadius: 1,
                 ),
               ],
