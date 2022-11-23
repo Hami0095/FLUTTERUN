@@ -12,8 +12,9 @@ class CharacterComponent extends SpriteComponent with HasGameRef {
   bool hasList = false;
   int health = 5;
   ParticleSystemComponent particleSystemComponent = ParticleSystemComponent();
-
-  CharacterComponent(List<Sprite> sprite, size, Vector2 position) {
+  double movePos;
+  CharacterComponent(
+      this.movePos, List<Sprite> sprite, size, Vector2 position) {
     spritesList = sprite;
     this.sprite = sprite[0];
     this.size = size;
@@ -21,7 +22,9 @@ class CharacterComponent extends SpriteComponent with HasGameRef {
     pos = position.x;
     hasList = true;
   }
-  CharacterComponent.withSingleSprite(Sprite sprite, size, Vector2 position) {
+
+  CharacterComponent.withSingleSprite(
+      this.movePos, Sprite sprite, size, Vector2 position) {
     this.sprite = sprite;
     this.size = size;
     this.position = position;
@@ -31,18 +34,18 @@ class CharacterComponent extends SpriteComponent with HasGameRef {
 
   Random _random = Random();
   Vector2 getRandomVector() {
-    return (Vector2.random(_random) - Vector2(0.5, -1)) * 1000;
+    return (Vector2.random(_random) - Vector2(0.5, -1)) * 450;
   }
 
   @override
   void update(double dt) {
     particleSystemComponent = ParticleSystemComponent(
       particle: Particle.generate(
-        count: 10,
+        count: 20,
         lifespan: 0.05,
         generator: (i) => AcceleratedParticle(
           speed: getRandomVector(),
-          position: position.clone() + Vector2((size.x) / 2, (size.y) - 20),
+          position: position.clone() + Vector2((size.x) / 2, (size.y)),
           child: CircleParticle(
             paint: Paint()..color = const Color.fromARGB(255, 254, 163, 26),
             radius: 2,
@@ -57,6 +60,10 @@ class CharacterComponent extends SpriteComponent with HasGameRef {
     super.update(dt);
   }
 
+  void reset() {
+    health = 5;
+  }
+
   void changeSprite() {
     if (_currentSpriteIndex < spritesList.length) {
       sprite = spritesList[++_currentSpriteIndex];
@@ -68,19 +75,19 @@ class CharacterComponent extends SpriteComponent with HasGameRef {
 
   void moveLeft() {
     if (position.x == pos) {
-      position.x = pos + 200;
+      position.x = pos + movePos;
     }
   }
 
   void moveRight() {
-    if (position.x == pos + 200) {
+    if (position.x == pos + movePos) {
       position.x = pos;
     }
   }
 
   void changePos() {
     if (position.x == pos) {
-      position.x = pos + 200;
+      position.x = pos + movePos;
     } else {
       position.x = pos;
     }

@@ -1,27 +1,31 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:run/resources/character_component.dart';
+import 'package:run/resources/game_world.dart';
 
 class EnemyComponent extends SpriteComponent {
   late final double pos;
   double speed;
   int enemyXPosSetter = 0;
   late final CharacterComponent player;
+
   EnemyComponent(
+    Vector2 enemyPos,
     Sprite sprite,
     size,
-    Vector2 position,
     this.player,
     this.speed,
   ) {
     this.sprite = sprite;
     this.size = size;
-    this.position = position;
-    pos = position.x;
+    position = enemyPos;
+    pos = 65;
   }
+  GameWorld world = GameWorld();
 
   bool collision() {
     if ((position.y <= player.position.y &&
@@ -29,22 +33,19 @@ class EnemyComponent extends SpriteComponent {
         position.x == player.position.x)) {
       player.health--;
       HapticFeedback.heavyImpact();
+      player.gameRef.camera.shake(duration: 0.1, intensity: 2);
       removeFromParent();
-      debugPrint('REMOVED');
       return true;
     }
     return false;
   }
 
-  // bool agayEnemyHai(){
-  //   if(position.y + 30){
-  //   }
-  //   return false;
-  // }
+  void reset() {
+    debugPrint('removed after ReSet');
+  }
 
   @override
   void update(double dt) {
-    debugPrint('enemy speed = $speed ');
     if (speed < 1) {
       speed = speed + 1;
     }
@@ -52,6 +53,7 @@ class EnemyComponent extends SpriteComponent {
     if (collision()) {
       position.y = -size.y - 20;
       speed = (Random().nextDouble() * 3) * exp(-dt) + 2;
+      debugPrint('REMOVED from collision');
     }
     if (position.y > 750) {
       position.y = -size.y - 20;
@@ -61,11 +63,6 @@ class EnemyComponent extends SpriteComponent {
       debugPrint('REMOVED from full screen');
     }
 
-    if (enemyXPosSetter == 0) {
-      position.x = pos;
-    } else {
-      position.x = pos + 200;
-    }
     super.update(dt);
   }
 }

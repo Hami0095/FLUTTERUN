@@ -10,13 +10,18 @@ import '../resources/enemy_component.dart';
 import '/resources/game_world.dart';
 
 class EnemyManager extends FlameGame {
-  var enemyXPosSetter = 0;
+  final movePos;
+  int enemyXPosSetter = 0;
+
   final GameWorld _world = world;
   late Timer _timer;
   CharacterComponent character;
-
+  late EnemyComponent enemy;
+  double positionY;
   Sprite enemySprite;
   EnemyManager(
+    this.movePos,
+    this.positionY,
     this.enemySprite,
     this.character,
   ) : super() {
@@ -26,26 +31,29 @@ class EnemyManager extends FlameGame {
       repeat: true,
       autoStart: false,
     );
+    debugPrint('$movePos');
   }
 
   void _spawnEnemy() async {
-    final psize = Vector2(100, 150);
-    final eSprite = await loadSprite('car2.png');
+    final psizex = size.x / 3.5;
+    final psizey = size.y / 4.5;
+    final psize = Vector2(psizex, psizey);
+    final eSprite = await loadSprite('police.png');
     double pos = 65;
-    final pSprite1 = await loadSprite('car1_1.png');
     double speed = Random().nextDouble() * 5;
 
-    enemyXPosSetter = (Random().nextDouble() * 5).floor();
+    enemyXPosSetter = (Random().nextInt(2));
     debugPrint('EnemyPos setter = $enemyXPosSetter');
     if (enemyXPosSetter == 0) {
       pos = pos;
       debugPrint('pos1 = {$pos}');
     } else {
-      pos = pos + 200;
+      pos = pos + movePos;
       debugPrint('pos2 = {$pos}');
     }
-    EnemyComponent enemy =
-        EnemyComponent(eSprite, psize, Vector2(pos, 0), character, speed);
+    debugPrint('ENEMY POS.X : ${pos}');
+    enemy = EnemyComponent(
+        Vector2(pos, positionY), eSprite, psize, character, speed);
     add(enemy);
   }
 
@@ -53,6 +61,10 @@ class EnemyManager extends FlameGame {
   void onMount() {
     _timer.start();
     super.onMount();
+  }
+
+  void reset() {
+    enemy.reset();
   }
 
   @override
