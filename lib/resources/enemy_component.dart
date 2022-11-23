@@ -40,6 +40,10 @@ class EnemyComponent extends SpriteComponent {
     return false;
   }
 
+  void reset() {
+    debugPrint('removed after ReSet');
+  }
+
   @override
   void update(double dt) {
     if (speed < 1) {

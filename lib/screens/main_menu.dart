@@ -1,6 +1,7 @@
 import 'package:flame_rive/flame_rive.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
+import 'package:run/screens/about_us.dart';
 import 'package:run/screens/game_play.dart';
 
 class MainMenu extends StatelessWidget {
@@ -74,14 +75,14 @@ class MainMenu extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: ElevatedButton(
                       onPressed: () {
-                        //TODO Navigating to Options page
+                        Navigator.of(context).pushNamed(AboutUs.routeName);
                       },
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.transparent),
                       ),
                       child: Text(
-                        'Options',
+                        'About Us',
                         style: TextStyle(
                           fontFamily: 'OtraMasStf',
                           fontSize: 30,

@@ -60,6 +60,10 @@ class CharacterComponent extends SpriteComponent with HasGameRef {
     super.update(dt);
   }
 
+  void reset() {
+    health = 5;
+  }
+
   void changeSprite() {
     if (_currentSpriteIndex < spritesList.length) {
       sprite = spritesList[++_currentSpriteIndex];

@@ -16,6 +16,7 @@ class EnemyManager extends FlameGame {
   final GameWorld _world = world;
   late Timer _timer;
   CharacterComponent character;
+  late EnemyComponent enemy;
   double positionY;
   Sprite enemySprite;
   EnemyManager(
@@ -51,7 +52,7 @@ class EnemyManager extends FlameGame {
       debugPrint('pos2 = {$pos}');
     }
     debugPrint('ENEMY POS.X : ${pos}');
-    EnemyComponent enemy = EnemyComponent(
+    enemy = EnemyComponent(
         Vector2(pos, positionY), eSprite, psize, character, speed);
     add(enemy);
   }
@@ -60,6 +61,10 @@ class EnemyManager extends FlameGame {
   void onMount() {
     _timer.start();
     super.onMount();
+  }
+
+  void reset() {
+    enemy.reset();
   }
 
   @override

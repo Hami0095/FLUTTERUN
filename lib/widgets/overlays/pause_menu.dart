@@ -67,6 +67,32 @@ class PauseMenu extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.4,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed(GamePlay.routeName);
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.transparent),
+              ),
+              child: Text(
+                'Restart',
+                style: TextStyle(
+                  fontFamily: 'OtraMasStf',
+                  fontSize: 30,
+                  foreground: Paint()..color = Colors.amber,
+                ).copyWith(
+                  shadows: [
+                    const Shadow(
+                      blurRadius: 120.0,
+                      color: Colors.transparent,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
           const SizedBox(
             height: 10,
           ),

@@ -5,6 +5,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:run/managers/enemy_manager.dart';
 import 'package:run/resources/background.dart';
@@ -15,14 +16,10 @@ import './resources/game_world.dart';
 
 class MyGame extends FlameGame
     with TapDetector, DoubleTapDetector, HorizontalDragDetector {
-  final GameWorld _world = world;
-  late final EnemyComponent _enemy;
-  late final EnemyComponent _enemy2;
-  late final EnemyComponent _enemy3;
   late final CharacterComponent _character;
-  late final CharacterComponent _character2;
+
   late final Background _background;
-  GameWorld _gameWorld = world;
+
   bool pressed = false;
   String direction = 'upward';
   double pos = 65;
@@ -31,14 +28,13 @@ class MyGame extends FlameGame
   double enemyPositionChecker = 0;
   late double movePos;
   bool gameOverFlag = false;
-  @override
-  Color backgroundColor() => const Color(0xff171717);
 
   int score = 1;
 
   TextComponent _playerScore = TextComponent();
   TextComponent gameOverText = TextComponent();
   TextComponent healthText = TextComponent();
+  late EnemyManager enemyManager;
   @override
   Future<void>? onLoad() async {
     debugPrint('loading Assets');
@@ -65,21 +61,24 @@ class MyGame extends FlameGame
     final enemyPosy = -size.y - 10;
     double speed = Random().nextDouble() * 30;
     movePos = size.x / 2.6;
+
     _character = CharacterComponent.withSingleSprite(
         movePos, pSprite1, psize, playerPos);
-    EnemyManager enemyManager =
-        EnemyManager(movePos, enemyPosy, eSprite, _character);
+
+    enemyManager = EnemyManager(movePos, enemyPosy, eSprite, _character);
 
     _background = Background(
       bckgSprite,
       Vector2(size.x * 1.6, size.y * 2.5),
       Vector2(-150, -size.y),
     );
+
     final srak = Background(
       roadSprite,
       Vector2(size.x * 0.75, size.y * 2),
       Vector2(size.x / 9, -100),
     );
+
     final renderer = TextPaint(
       style: const TextStyle(
         color: Colors.white,
@@ -135,10 +134,16 @@ class MyGame extends FlameGame
     healthText.text = 'Health = ${_character.health}';
   }
 
+  void reset() {
+    _character.reset();
+    score = 0;
+    gameOverFlag = false;
+    enemyManager.reset();
+  }
+
   @override
   void onTap() {
     _character.changePos();
-
     super.onTap();
   }
 
